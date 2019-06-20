@@ -1,8 +1,5 @@
 package com.uca.capas.controller;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -14,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.capas.domain.Empleado;
 import com.uca.capas.domain.Sucursal;
-import com.uca.capas.repositories.EmpleadoRepository;
 import com.uca.capas.service.EmpleadoService;
 import com.uca.capas.service.SucursalService;
 

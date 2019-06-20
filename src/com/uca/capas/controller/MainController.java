@@ -15,6 +15,7 @@ public class MainController {
 	@RequestMapping("/")
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView("index");
+		mav.addObject("badcredentials", false);
 		mav.addObject("user", new User());
 		return mav;
 	}

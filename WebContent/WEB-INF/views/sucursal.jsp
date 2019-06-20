@@ -17,6 +17,31 @@
 <title>${sucursal.name}</title>
 </head>
 <body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Rustico</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarColor02" aria-controls="navbarColor02"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					</li>
+				</ul>
+				<div class="form-inline my-2 my-lg-0">
+					<ul class="navbar-nav mr-auto">
+						<li >
+							<a class="nav-link" href="${pageContext.request.contextPath}/">Cerrar sesión <i class="fas fa-sign-out-alt"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
 	<div class="container-fluid m-3">
 
 		<h2>${sucursal.name}</h2>
@@ -152,6 +177,7 @@
 					<div class="modal-body">
 						<form:form action="${pageContext.request.contextPath}/addEmpleado/${sucursal.id}"
 							method="POST" modelAttribute="empleado">
+							<p class="text-danger"> ${validMessage} </p>
 							<form:input path="id" type="hidden"/>
 							<div class="form-group">
 								<label>Nombre:</label>

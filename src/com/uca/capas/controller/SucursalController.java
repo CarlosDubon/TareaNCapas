@@ -1,5 +1,7 @@
 package com.uca.capas.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,7 @@ public class SucursalController {
 	@Autowired
 	private EmpleadoService empleadoService;
 	
-	@RequestMapping("/DeteleSucursal/{id}")
+	@RequestMapping("/DeteleSucursal/{id}") 
 	public ModelAndView deleteSucursal(@PathVariable("id")Integer id) {
 		ModelAndView mav = new ModelAndView("dashboard");
 		sucursalService.deleteById(id);
@@ -33,9 +35,11 @@ public class SucursalController {
 	}
 	
 	@RequestMapping("/addSucursal")
-	public ModelAndView saveSucursal(@ModelAttribute Sucursal sucursal, BindingResult bindingResult) {
+	public ModelAndView saveSucursal(@ModelAttribute @Valid Sucursal sucursal, BindingResult bindingResult) {
 		ModelAndView mav = new ModelAndView("dashboard"); 
-		if(bindingResult.hasErrors()) {
+		System.out.println(bindingResult.hasErrors());
+
+		if(!bindingResult.hasErrors()) {
 			Sucursal s = null;
 			try {
 				s = sucursalService.save(sucursal);
@@ -77,13 +81,15 @@ public class SucursalController {
 		return mav;
 	}
 	@RequestMapping("/addEmpleado/{idSucursal}")
-	public ModelAndView addEmpleado(@ModelAttribute Empleado empleado, @PathVariable("idSucursal")Integer id, BindingResult result) {
+	public ModelAndView addEmpleado(@ModelAttribute @Valid Empleado empleado, @PathVariable("idSucursal")Integer id, BindingResult result) {
 		ModelAndView mav = new ModelAndView("sucursal"); 
 		empleado.setSucursal(sucursalService.findById(id));
-		if(result.hasErrors()) {
+		if(!result.hasErrors()) {
 			empleadoService.save(empleado);
+			mav.addObject("empleado", new Empleado());
 		}else {
 			mav.addObject("validMessage", "Existen campos icorrectos");
+			System.out.println("Campos erroneos: " + result.getErrorCount());
 		}
 		mav.addObject("sucursal", sucursalService.findById(id));
 		return mav;

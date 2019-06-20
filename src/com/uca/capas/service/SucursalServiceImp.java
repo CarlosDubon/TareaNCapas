@@ -22,7 +22,7 @@ public class SucursalServiceImp implements SucursalService{
 
 	@Override
 	public boolean deleteById(Integer id) throws DataAccessException {
-		sucursalRepo.findOneById(id);
+		sucursalRepo.deleteById(id);
 		return true;
 	}
 	@Override

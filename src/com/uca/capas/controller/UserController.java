@@ -28,7 +28,7 @@ public class UserController {
 		if(userService.login(user.getUser(), user.getPassword())) {
 			mav.setViewName("dashboard");
 			List<Sucursal> s = sucursalService.findAll();
-			mav.addObject("badcredentials", false);
+			mav.addObject("firstTime", true);
 			mav.addObject("sucursales", s);
 			mav.addObject("sucursal", new Sucursal());
 		}else {

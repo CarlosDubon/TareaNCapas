@@ -78,15 +78,14 @@ public class SucursalController {
 	}
 	@RequestMapping("/addEmpleado/{idSucursal}")
 	public ModelAndView addEmpleado(@ModelAttribute Empleado empleado, @PathVariable("idSucursal")Integer id, BindingResult result) {
-		ModelAndView mav = new ModelAndView("dashboard"); 
+		ModelAndView mav = new ModelAndView("sucursal"); 
 		empleado.setSucursal(sucursalService.findById(id));
 		if(result.hasErrors()) {
 			empleadoService.save(empleado);
 		}else {
 			mav.addObject("validMessage", "Existen campos icorrectos");
 		}
-		mav.addObject("sucursal", new Sucursal());
-		mav.addObject("sucursales", sucursalService.findAll());
+		mav.addObject("sucursal", sucursalService.findById(id));
 		return mav;
 	}
 	@RequestMapping("/editEmpleado/{idEmpleado}")

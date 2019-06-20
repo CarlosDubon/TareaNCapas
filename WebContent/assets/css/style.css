@@ -1,0 +1,33 @@
+.cover-background{
+	background-image: url("../img/cover.jpg");
+	width:100%;
+	height:100vh;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	color:#fff;
+	background-size: cover;
+	
+}
+.cover-background>div{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	width:70%;
+}
+.soid-background>div{
+	display:flex;
+	flex-direction:column;
+	height:80vh;
+}
+.soid-background{
+	background: var(--primary);
+	width:100%;
+	height:100vh;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	color:#fff;
+	background-size: cover;
+}

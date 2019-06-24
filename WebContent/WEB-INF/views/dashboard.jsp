@@ -47,10 +47,9 @@
 			<h2>Bienvenido usuario Administrador</h2>
 			<h3>Todas las sucursales</h3>
 			<c:if test="${!firstTime}">
-				<div class="alert alert-warning alert-dismissible fade show"
+				<div class="alert alert-${alertType} alert-dismissible fade show"
 					role="alert">
-					<strong>Holy guacamole!</strong> You should check in on some of
-					those fields below.
+					${alertMessage}
 					<button type="button" class="close" data-dismiss="alert"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>

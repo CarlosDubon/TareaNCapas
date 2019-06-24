@@ -28,7 +28,14 @@ public class SucursalController {
 	@RequestMapping("/DeteleSucursal/{id}") 
 	public ModelAndView deleteSucursal(@PathVariable("id")Integer id) {
 		ModelAndView mav = new ModelAndView("dashboard");
-		sucursalService.deleteById(id);
+		try {
+			sucursalService.deleteById(id);
+			mav.addObject("alertType", "success");
+			mav.addObject("alertMessage", "La sucursal se elimino correctamente.");
+		}catch(DataAccessException e) {
+			mav.addObject("alertType", "danger");
+			mav.addObject("alertMessage", "Un error inesperado ocurrio, por favor intentalo de nuevo");
+		}
 		mav.addObject("sucursales", sucursalService.findAll());
 		mav.addObject("sucursal",new Sucursal());
 		return mav;
@@ -43,8 +50,10 @@ public class SucursalController {
 			Sucursal s = null;
 			try {
 				s = sucursalService.save(sucursal);
+				mav.addObject("alertType", "success");
+				mav.addObject("alertMessage", "La sucursal se agrego correctamente.");
 			}catch(DataAccessException e) {
-				
+				mav.addObject("alertType", "danger");
 			}finally {
 				if(s!=null) {
 					mav.addObject("sucursal",new Sucursal());
@@ -54,6 +63,8 @@ public class SucursalController {
 				mav.addObject("sucursales", sucursalService.findAll());
 			}
 		}else {
+			mav.addObject("alertType", "warning");
+			mav.addObject("alertMessage", "No se añadio la sucursal, por favor verficar los campos");
 			mav.addObject("sucursal",new Sucursal());
 			mav.addObject("sucursales", sucursalService.findAll());
 			mav.addObject("validMessage","Existen campos vacios");
@@ -63,6 +74,7 @@ public class SucursalController {
 	@RequestMapping("/sucursal/{id}")
 	public ModelAndView getSucursal(@PathVariable("id")Integer id) {
 		ModelAndView mav = new ModelAndView("sucursal");
+		mav.addObject("firstTime", true);
 		mav.addObject("empleado", new Empleado());
 		mav.addObject("sucursal", sucursalService.findById(id));
 		return mav;
@@ -73,8 +85,11 @@ public class SucursalController {
 		System.out.println("El siguiente es el query para delete "+idEmpleado);
 		try {
 			empleadoService.deleteEmpleadoById(idEmpleado);
+			mav.addObject("alertType", "success");
+			mav.addObject("alertMessage", "El empleado se elimino correctamente.");
 		}catch(DataAccessException ex) {
-			
+			mav.addObject("alertType", "danger");
+			mav.addObject("alertMessage", "Un error inesperado ocurrio, por favor intentalo de nuevo");
 		}
 		mav.addObject("sucursal", sucursalService.findById(idSucursal));
 		mav.addObject("empleado", new Empleado());
@@ -87,9 +102,12 @@ public class SucursalController {
 		if(!result.hasErrors()) {
 			empleadoService.save(empleado);
 			mav.addObject("empleado", new Empleado());
+			mav.addObject("alertType", "success");
+			mav.addObject("alertMessage", "El empleado se elimino correctamente.");
 		}else {
 			mav.addObject("validMessage", "Existen campos icorrectos");
-			System.out.println("Campos erroneos: " + result.getErrorCount());
+			mav.addObject("alertMessage", "No se añadio el cliente, por favor verficar los campos");
+			mav.addObject("sucursal",new Sucursal());
 		}
 		mav.addObject("sucursal", sucursalService.findById(id));
 		return mav;

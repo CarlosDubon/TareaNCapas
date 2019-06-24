@@ -45,6 +45,16 @@
 	<div class="container-fluid m-3">
 
 		<h2>${sucursal.name}</h2>
+		<c:if test="${!firstTime}">
+			<div class="alert alert-${alertType} alert-dismissible fade show"
+				role="alert">
+				${alertMessage}
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</c:if>
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active"
 				data-toggle="tab" href="#perfil">Perfil</a></li>
